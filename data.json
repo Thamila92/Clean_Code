@@ -1,0 +1,17 @@
+{
+  "cards": [
+    {
+      "id": "1",
+      "question": "What is Node.js?",
+      "answer": "JavaScript runtime environment.",
+      "category": "First",
+      "answeredCorrectly": true
+    },
+    {
+      "id": "1739210913503",
+      "question": "What is pair programming ?",
+      "answer": "A practice to work in pair on same computer.",
+      "tag": "Teamwork"
+    }
+  ]
+}
