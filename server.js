@@ -2,68 +2,35 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const fs = require('fs');
-const path = require('path');
+const ficheService = require('./ficheService');
 
 const app = express();
 const PORT = 8080;
-const dataFilePath = path.join(__dirname, 'data.json');
 
 app.use(bodyParser.json());
 
 const swaggerDocument = YAML.load('./Swagger.yml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
- function readData() {
-    try {
-        const jsonData = fs.readFileSync(dataFilePath);
-        return JSON.parse(jsonData);
-    } catch (err) {
-        return { cards: [] };   
-    }
-}
-
- function saveData(data) {
-    const dataString = JSON.stringify(data, null, 2);
-    fs.writeFileSync(dataFilePath, dataString);
-}
-
- app.get('/cards', (req, res) => {
-    const data = readData();
-    res.status(200).json(data.cards);
+app.get('/cards', (req, res) => {
+    res.status(200).json(ficheService.getFiches());
 });
 
- app.post('/cards', (req, res) => {
-    const newCard = { id: Date.now().toString(), ...req.body };
-    const data = readData();
-    data.cards.push(newCard);
-    saveData(data);
-    res.status(201).json({ message: 'Card created', card: newCard });
+app.post('/cards', (req, res) => {
+    const { question, answer } = req.body;
+    const card = ficheService.createFiche(question, answer);
+    res.status(201).json({ message: 'Card created', card });
 });
 
- app.patch('/cards/:cardId/answer', (req, res) => {
+app.patch('/cards/:cardId/answer', (req, res) => {
     const { cardId } = req.params;
     const { isValid } = req.body;
-    const data = readData();
-    const card = data.cards.find(card => card.id === cardId);
-    if (card) {
-        card.answeredCorrectly = isValid;
-        saveData(data);
+    const success = ficheService.updateFicheAnswer(cardId, isValid);
+    if (success) {
         res.status(204).send();
     } else {
         res.status(404).send('Card not found');
     }
-});
-
- app.get('/cards/quizz', (req, res) => {
-    const { date } = req.query;
-    const data = readData();
-    //logique pour filter les crtes  (ps encore faite )
-     res.status(200).json(data.cards);
-});
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
 });
 
 app.listen(PORT, () => {
