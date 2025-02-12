@@ -26,12 +26,18 @@ app.patch('/cards/:cardId/answer', (req, res) => {
     const { cardId } = req.params;
     const { isValid } = req.body;
     const success = ficheService.updateFicheAnswer(cardId, isValid);
+ 
     if (success) {
         res.status(204).send();
     } else {
         res.status(404).send('Card not found');
     }
 });
+
+app.get('/cards/quizz', (req, res) => {
+
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

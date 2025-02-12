@@ -20,35 +20,59 @@ function saveData(data) {
          console.error("Error saving data file:", err);
     }
 }
-
-function createFiche(question, answer) {
+function pushCardinData(newCard){
     const data = readData();
-    const newCard = {
-        id: Date.now().toString(),  
-        question,
-        answer,
-        category: 'First'   
-    };
     data.cards.push(newCard);
     saveData(data);
+}
+
+function createFiche(question, answer) {
+    const newCard = NewCardJson(question, answer);
+    pushCardinData(newCard);
     return newCard;
 }
 
+function NewCardJson(question,answer){ 
+ return {
+    id: uuidv4(),  
+    question,
+    answer,
+    category: 'FIRST' ,
+    date:Date.now().toString()
+}
+
+
+  
+ 
+
+}
 function getFiches() {
     const data = readData();
     return data.cards;
 }
 
-function updateFicheAnswer(cardId, isValid) {
-    const data = readData();
-    const card = data.cards.find(card => card.id === cardId);
-    if (card) {
+function getCardByid(cardId,data){
+  
+
+    return data.cards.find(card => card.id === cardId);
+}
+
+function isAnsweredCorrectly(card,isValid){
+ 
+     if (card) {
         card.answeredCorrectly = isValid;
+ 
         saveData(data);
+ 
         return true;
     } else {
         return false;
     }
+
+}
+function updateFicheAnswer(cardId, isValid) {
+    
+   return  isAnsweredCorrectly(getCardByid(cardId,readData()), isValid,readData());
 }
 
  
