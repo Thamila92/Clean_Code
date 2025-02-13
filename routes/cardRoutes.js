@@ -1,6 +1,6 @@
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-import { createFiche, getFiches, updateFicheAnswer } from '../services/ficheService.js';
+import { createFiche, getFiches, updateFicheAnswer,getQuizzCards } from '../services/ficheService.js';
 
 export const CardHandler = (app) => {
     const swaggerDocument = YAML.load(new URL('../Swagger.yml', import.meta.url));
@@ -30,5 +30,13 @@ export const CardHandler = (app) => {
     });
 
     app.get('/cards/quizz', (req, res) => {
+        try {
+            const { date } = req.query;
+            const cardsForQuizz = getQuizzCards(date);
+            res.status(200).json(cardsForQuizz);
+        } catch (err) {
+            res.status(500).send('Error processing quizz cards');
+            console.error(err);
+        }
     });
 };

@@ -6,7 +6,7 @@ class Card {
         this.question = question;
         this.answer = answer;
         this.category = category;
-        this.date = new Date().toISOString();
+        this.date = new Date().toString();
         this.answeredCorrectly = null; 
     }
 }
