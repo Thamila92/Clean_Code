@@ -1,6 +1,8 @@
 import FileDataProvider from '../services/fileManager.js';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
+import Card from '../models/Card.js';
+
 
 dotenv.config();
 
@@ -12,20 +14,9 @@ function pushCardinData(newCard){
     dataProvider.saveData(data);
 }
 
-function NewCardJson(question,answer){ 
-
-    return {
-        id: uuidv4(),  
-        question,
-        answer,
-        category: 'FIRST',
-        date:Date.now().toString()
-    }
-
-}
 
 export function createFiche(question, answer) {
-    const newCard = NewCardJson(question, answer);
+    const newCard = new Card(question, answer);
     pushCardinData(newCard);
     return newCard;
 }

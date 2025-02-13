@@ -50,6 +50,22 @@
       "category": "FIRST",
       "date": "1739481596302",
       "answeredCorrectly": true
+    },
+    {
+      "id": "11e18cc6-5d7d-4f13-8315-1b208ad01cb5",
+      "question": "What is pair programming ?",
+      "answer": "A practice to work inzdqsdzqsdz pair on same computer.",
+      "category": "FIRST",
+      "date": "2025-02-13T21:49:47.543Z",
+      "answeredCorrectly": null
+    },
+    {
+      "id": "451a0c59-6d9b-408b-9527-05cc70a3e5aa",
+      "question": "What is pair prograeeeeemming ?",
+      "answer": "A practice to work inzdqsdzqsdz pair on same computer.",
+      "category": "FIRST",
+      "date": "2025-02-13T21:50:09.530Z",
+      "answeredCorrectly": true
     }
   ]
 }

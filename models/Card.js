@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 class Card {
     constructor(question, answer, category = 'FIRST') {
@@ -11,4 +11,4 @@ class Card {
     }
 }
 
-module.exports = Card;
+export default Card;
