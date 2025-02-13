@@ -1,5 +1,5 @@
 
-const { createFiche } = require("./ficheService");
+const { createFiche } = require("../services/ficheService");
 
 describe('Fiche Management', () => {
   it('creates a fiche and initializes it in category 1', () => {
