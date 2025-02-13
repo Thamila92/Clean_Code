@@ -66,6 +66,14 @@
       "category": "FIRST",
       "date": "2025-02-13T21:50:09.530Z",
       "answeredCorrectly": true
+    },
+    {
+      "id": "4f4b8062-9e3a-4b44-9e4e-23074e8c3cee",
+      "question": "What zzzis pair programming ?",
+      "answer": "A pracsdfsdfsdfstice to work in pair on same computer.",
+      "category": "FIRST",
+      "date": "2025-02-13T22:31:22.824Z",
+      "answeredCorrectly": null
     }
   ]
 }

@@ -44,3 +44,14 @@ export function updateFicheAnswer(cardId, isValid) {
     dataProvider.saveData(data); 
 }
 
+export function getQuizzCards(date) {
+    const data = dataProvider.readData();
+    const requestedDate = date ? new Date(date) : new Date();
+    return data.cards.filter(card => {
+        const lastAnsweredDate = new Date(parseInt(card.date));
+        const daysSinceLastAnswer = Math.floor((requestedDate - lastAnsweredDate) / (1000 * 3600 * 24));
+        const reviewPeriods = { FIRST: 1, SECOND: 2, THIRD: 4, FOURTH: 8, FIFTH: 16, SIXTH: 32, SEVENTH: 64 };
+
+        return card.category !== 'DONE' && daysSinceLastAnswer >= (reviewPeriods[card.category] || 0);
+    });
+}
