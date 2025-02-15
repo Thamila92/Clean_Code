@@ -1,18 +1,18 @@
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-import { createFiche, getFiches, updateFicheAnswer,getQuizzCards } from '../services/ficheService.js';
+import { createCard, getCards, updateCardAnswer,getQuizzCards } from '../services/ficheService.js';
 
 export const CardHandler = (app) => {
     const swaggerDocument = YAML.load(new URL('../Swagger.yml', import.meta.url));
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     app.get('/cards', (req, res) => {
-        res.status(200).json(getFiches());
+        res.status(200).json(getCards());
     });
 
     app.post('/cards', (req, res) => {
         const { question, answer } = req.body;
-        const card = createFiche(question, answer);
+        const card = createCard(question, answer);
         res.status(201).json({ message: 'Card created', card });
     });
 
@@ -20,7 +20,7 @@ export const CardHandler = (app) => {
         try {
             const { cardId } = req.params;
             const { isValid } = req.body;
-            updateFicheAnswer(cardId, isValid);
+            updateCardAnswer(cardId, isValid);
 
             res.status(204).send();
         } catch (err) {

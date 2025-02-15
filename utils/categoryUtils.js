@@ -11,13 +11,6 @@ export const reviewPeriods = {
 
 
 export function getNextCategory(currentCategory) {
-    const categories = ['FIRST', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH', 'DONE'];
-  
-    if (!categories.includes(currentCategory) || currentCategory === 'DONE') {
-      return 'DONE'; 
-    }
-  
-    const index = categories.indexOf(currentCategory);
-    return categories[index + 1] || 'DONE';
-  }
-  
+  const index = categories.indexOf(currentCategory);
+  return index < 0 || currentCategory === 'DONE' ? 'DONE' : categories[index + 1];
+}

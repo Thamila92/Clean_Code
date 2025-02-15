@@ -31,4 +31,6 @@ describe('Card Model', () => {
         expect(card.category).toBe('FIRST');
         expect(card.answeredCorrectly).toBe(false);
     });
+
+    
 });

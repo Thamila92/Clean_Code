@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import Card from '../models/Card.js';
 import { getNextCategory, reviewPeriods } from '../utils/categoryUtils.js';
 
-
 dotenv.config();
 
 if (!process.env.DATA_PATH) {
@@ -18,21 +17,21 @@ function saveUpdatedData(data) {
 }
 
 
-function pushCardinData(newCard){
+function addCard(newCard){
     const data = dataProvider.readData();
     data.cards.push(newCard);
     saveUpdatedData(data);
 }
 
 
-export function createFiche(question, answer) {
+export function createCard(question, answer) {
     const newCard = new Card(question, answer);
-    pushCardinData(newCard);
+    addCard(newCard);
     return newCard;
 }
 
 
-export function getFiches() {
+export function getCards() {
     return dataProvider.readData().cards;
 }
 
@@ -52,7 +51,7 @@ export function markCardAsAnswered(card, isValid) {
 }
 
 
-export function updateFicheAnswer(cardId, isValid) {
+export function updateCardAnswer(cardId, isValid) {
     const { card, cardIndex, data } = findCardById(cardId);
 
     markCardAsAnswered(card, isValid);
@@ -65,6 +64,7 @@ export function updateFicheAnswer(cardId, isValid) {
 
 function isCardDueForReview(card, requestedDate) {
     try {
+
         if (!card.date) {
             console.warn(`Card ${card.id} has no date`);
             return false;
@@ -86,8 +86,7 @@ function isCardDueForReview(card, requestedDate) {
     }
 }
 
-
-export function getQuizzCards(date) {
+export function getQuizCards(date) {
     const data = dataProvider.readData();
     const requestedDate = date ? new Date(date) : new Date();
 

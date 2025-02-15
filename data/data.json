@@ -60,17 +60,17 @@
       "id": "ec800eb2-eacc-4ffc-9c6a-747b4073c64b",
       "question": "test ?",
       "answer": "A practice to work in pair on same computer.",
-      "category": "FIRST",
-      "date": "Fri Feb 14 2025 11:47:15 GMT+0100 (Central European Standard Time)",
-      "answeredCorrectly": null
+      "category": "DONE",
+      "date": "2025-02-15T18:45:20.130Z",
+      "answeredCorrectly": true
     },
     {
       "id": "6a83e6da-5263-4d1f-8cfa-6c6507fe86e9",
       "question": "test ?",
       "answer": "Azdsqzdqspractice to work in pair on same computer.",
-      "category": "FIRST",
-      "date": "2025-02-14T22:43:21.848Z",
-      "answeredCorrectly": false
+      "category": "DONE",
+      "date": "2025-02-15T18:33:07.991Z",
+      "answeredCorrectly": true
     }
   ]
 }
