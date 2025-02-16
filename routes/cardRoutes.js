@@ -1,21 +1,26 @@
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-import { createCard, getCards, updateCardAnswer,getQuizCards } from '../services/ficheService.js';
+import { createCard, getCards, updateCardAnswer,getQuizCards, getCardsByTags } from '../services/ficheService.js';
 
 export const CardHandler = (app) => {
     const swaggerDocument = YAML.load(new URL('../Swagger.yml', import.meta.url));
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     app.get('/cards', (req, res) => {
-        res.status(200).json(getCards());
+        const tagsParam = req.query.tags;
+    
+        const tags = tagsParam ? tagsParam.split(',') : null;
+    
+        const cards = tags ? getCardsByTags(tags) : getCards();
+    
+        res.status(200).json(cards);
     });
 
     app.post('/cards', (req, res) => {
-        const { question, answer } = req.body;
-        const card = createCard(question, answer);
+        const { question, answer, tag = '' } = req.body;
+        const card = createCard(question, answer, tag);
         res.status(201).json({ message: 'Card created', card });
     });
-
     app.patch('/cards/:cardId/answer', (req, res) => {
         try {
             const { cardId } = req.params;

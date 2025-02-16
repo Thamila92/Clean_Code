@@ -1,4 +1,4 @@
-import { createCard, getQuizCards, updateCardAnswer, findCardById } from '../../services/ficheService.js';
+import { createCard, getQuizCards, updateCardAnswer, findCardById, getCardsByTags } from '../../services/ficheService.js';
 
 jest.mock('../../services/fileManager.js', () => {
     const { MockFileDataProvider } = require('../mocks/fileManager.js');
@@ -8,6 +8,19 @@ jest.mock('../../services/fileManager.js', () => {
 
 describe('Fiche Service - createCard', () => { 
     it('creates a fiche with the correct properties', () => {
+        const fiche = createCard('What is Node.js?', 'JavaScript runtime environment', 'JSTag');
+
+        expect(fiche).toMatchObject({
+            question: 'What is Node.js?',
+            answer: 'JavaScript runtime environment',
+            category: 'FIRST',
+            tag: 'JSTag'
+        });
+        expect(fiche.id).toBeDefined(); 
+        expect(fiche.date).toBeDefined(); 
+    });
+
+    it('creates a fiche with no tag', () => {
         const fiche = createCard('What is Node.js?', 'JavaScript runtime environment');
 
         expect(fiche).toMatchObject({
@@ -18,6 +31,7 @@ describe('Fiche Service - createCard', () => {
         expect(fiche.id).toBeDefined(); 
         expect(fiche.date).toBeDefined(); 
     });
+
 });
 
 describe('Fiche Service - updateCardAnswer', () => {
@@ -39,6 +53,33 @@ describe('Fiche Service - updateCardAnswer', () => {
         expect(card.answeredCorrectly).toBe(false);
     });
 });
+
+describe('Fiche Service - getCardsByTags', () => {
+    it('returns all cards if no tags are provided', () => {
+        createCard('What is Node.js?', 'JavaScript runtime environment', 'backend');
+        createCard('What is JavaScript?', 'Programming language', 'frontend');
+        
+        const allCards = getCardsByTags();
+        expect(allCards).toHaveLength(6);
+    });
+
+    it('filters cards by a single tag', () => {
+        const filteredCards = getCardsByTags(['backend']);
+        expect(filteredCards).toHaveLength(1); 
+        expect(filteredCards[0].tag).toBe('backend');
+    });
+
+    it('filters cards by multiple tags', () => {
+        const filteredCards = getCardsByTags(['backend', 'frontend']);
+        expect(filteredCards).toHaveLength(2); 
+    });
+
+    it('returns an empty array if no card matches the tags', () => {
+        const filteredCards = getCardsByTags(['nonexistent']);
+        expect(filteredCards).toHaveLength(0); 
+    });
+});
+
 
 describe('Fiche Service - getQuizCards', () => {
     it('filters fiches based on review period', () => {

@@ -14,6 +14,12 @@ describe('Card Model', () => {
         expect(card.date).toBeDefined();
     });
 
+    it('throws an error if an invalid category is provided', () => {
+        expect(() => {
+            new Card('What is Node.js?', 'JavaScript runtime environment', '', 'INVALID_CATEGORY');
+        }).toThrow(/Invalid category/);
+    });
+
     it('updates the card status correctly when the answer is valid', () => {
         const card = new Card('What is Node.js?', 'JavaScript runtime environment');
 

@@ -24,8 +24,8 @@ function addCard(newCard){
 }
 
 
-export function createCard(question, answer) {
-    const newCard = new Card(question, answer);
+export function createCard(question, answer, tag) {
+    const newCard = new Card(question, answer, tag);
     addCard(newCard);
     return newCard;
 }
@@ -33,6 +33,16 @@ export function createCard(question, answer) {
 
 export function getCards() {
     return dataProvider.readData().cards;
+}
+
+export function getCardsByTags(tags) {
+    const allCards = getCards();
+
+    if (!tags || tags.length === 0) {
+        return allCards;
+    }
+
+    return allCards.filter(card => card.tag && tags.some(tag => card.tag.includes(tag)));
 }
 
 export function findCardById(cardId) {
