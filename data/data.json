@@ -71,6 +71,14 @@
       "category": "DONE",
       "date": "2025-02-15T18:33:07.991Z",
       "answeredCorrectly": true
+    },
+    {
+      "id": "05a084e2-63ac-4d5a-ad5b-b67e4de65197",
+      "question": "What is pair programming ?",
+      "answer": "A practice to work in pair on same computer.",
+      "category": "FIRST",
+      "date": "2025-02-16T12:12:37.631Z",
+      "answeredCorrectly": false
     }
   ]
 }
